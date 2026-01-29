@@ -1,7 +1,8 @@
 streamlit
-diffusers==0.27.2
+torch
 transformers
 accelerate
-torch
 safetensors
 pillow
+huggingface_hub==0.20.3
+diffusers==0.27.2
