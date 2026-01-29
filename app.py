@@ -10,11 +10,10 @@ st.caption("Fast & Free Image Generator (SD Turbo)")
 def load_model():
     pipe = AutoPipelineForText2Image.from_pretrained(
         "stabilityai/sd-turbo",
-        torch_dtype=torch.float16,
+        torch_dtype=torch.float32,   # CPU safe
         use_safetensors=True
     )
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    pipe = pipe.to(device)
+    pipe = pipe.to("cpu")           # Force CPU
     return pipe
 
 pipe = load_model()
@@ -36,6 +35,11 @@ if prompt:
 
     with st.chat_message("assistant"):
         with st.spinner("Generating image..."):
-            image = pipe(prompt, num_inference_steps=4, guidance_scale=0.0).images[0]
+            image = pipe(
+                prompt,
+                num_inference_steps=4,
+                guidance_scale=0.0
+            ).images[0]
+
         st.image(image, use_column_width=True)
         st.session_state.messages.append({"role": "assistant", "image": image})
