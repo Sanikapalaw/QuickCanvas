@@ -1,13 +1,8 @@
 streamlit
-
-# CPU PyTorch
-torch==2.10.0+cpu
---extra-index-url https://download.pytorch.org/whl/cpu
-
-# Let pip auto-resolve tokenizers
-transformers==4.40.2
-accelerate==0.32.1
+torch
+transformers
+accelerate
 safetensors
 pillow
-huggingface_hub==0.20.3
-diffusers==0.27.2
+huggingface_hub
+diffusers
